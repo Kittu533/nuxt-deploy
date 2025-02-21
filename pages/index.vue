@@ -15,43 +15,54 @@ const stats = [
   { value: "24+", label: "Worldwide Awards" },
 ];
 
-// fetch Api FakeStore
-import { ref, onMounted } from "vue";
-
-// Definisikan interface untuk produk dari API
+// fetch API menggunakan useFetch
 interface Product {
   id: number;
   title: string;
   image: string;
 }
 
-// State untuk menyimpan data produk dan status loading
-const products = ref<Product[]>([]);
-const loading = ref(true);
+const {
+  data: products,
+  pending,
+  error,
+} = useFetch<Product[]>("https://fakestoreapi.com/products?limit=3");
 
-// Fungsi untuk fetch data produk
-const fetchProducts = async () => {
-  try {
-    const response = await fetch("https://fakestoreapi.com/products?limit=3");
-    const data: Product[] = await response.json();
-    products.value = data;
-  } catch (error) {
-    console.error("Error fetching products:", error);
-  } finally {
-    loading.value = false;
-  }
-};
+// // fetch Api FakeStore
+// import { ref, onMounted } from "vue";
 
-// Fetch data saat komponen dipasang
-onMounted(fetchProducts);
+//  Definisikan interface untuk produk dari API
 
+// // State untuk menyimpan data produk dan status loading
+// const products = ref<Product[]>([]);
+// const loading = ref(true);
 
+// // Fungsi untuk fetch data produk
+// const fetchProducts = async () => {
+//   try {
+//     const response = await fetch("https://fakestoreapi.com/products?limit=3");
+//     const data: Product[] = await response.json();
+//     products.value = data;
+//   } catch (error) {
+//     console.error("Error fetching products:", error);
+//   } finally {
+//     loading.value = false;
+//   }
+// };
+
+// // Fetch data saat komponen dipasang
+// onMounted(fetchProducts);
+
+// import { vAutoAnimate } from "@formkit/auto-animate";
+// import type { _transitionDuration } from "#tailwind-config/theme";
+
+// const isOpen = ref(false);
 </script>
 
 <template>
   <div class="flex flex-col flex-1">
     <section class="flex-1 flex justify-center items-center gap-32 mb-28">
-      <div class="flex flex-col gap-6">
+      <div data-aos="fade-right" class="flex flex-col gap-6">
         <h1 class="text-6xl md:text-7xl font-bold leading-tight text-black">
           <span class="block">We Take</span>
           <span class="block">Care Of</span>
@@ -64,12 +75,12 @@ onMounted(fetchProducts);
           <input
             type="text"
             placeholder="Enter your email"
-            class="px-4 py-2 rounded-2xl"
+            class="px-4 py-2 rounded-2xl text-white"
           />
           <Button class="rounded-xl">Book A Call</Button>
         </div>
       </div>
-      <div>
+      <div data-aos="fade-left">
         <img class="w-[602px]" src="~/assets/hero-img.png" alt="" />
       </div>
     </section>
@@ -82,8 +93,8 @@ onMounted(fetchProducts);
         >
           Companies We Work With
         </h1>
-        <img class="w-[1200px]" src="~/assets/work-with-1.png" alt="" />
-        <img class="w-[1200px]" src="~/assets/work-with-2.png" alt="" />
+        <img data-aos="right" class="w-[1200px]" src="~/assets/work-with-1.png" alt="" />
+        <img data-aos="left" class="w-[1200px]" src="~/assets/work-with-2.png" alt="" />
       </div>
     </section>
     <section
@@ -93,7 +104,7 @@ onMounted(fetchProducts);
         class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
       >
         <!-- Bagian Statistik -->
-        <div class="grid grid-cols-2 gap-8">
+        <div data-aos="fade-right" class="grid grid-cols-2 gap-8">
           <div v-for="(item, index) in stats" :key="index">
             <h2 class="text-4xl md:text-5xl font-bold">{{ item.value }}</h2>
             <p class="text-gray-500">{{ item.label }}</p>
@@ -101,7 +112,7 @@ onMounted(fetchProducts);
         </div>
 
         <!-- Bagian Komitmen -->
-        <div>
+        <div data-aos="fade-left">
           <h2 class="text-4xl md:text-5xl font-bold">Commitments</h2>
           <p class="text-gray-500 mt-4">
             We are committed to working with you collaboratively to understand
@@ -116,6 +127,7 @@ onMounted(fetchProducts);
         </div>
       </div>
     </section>
+    <!-- Product-section -->
     <section
       class="min-h-[calc(60vh-68px)] bg-gray-100 flex flex-col items-center py-16 px-6"
     >
@@ -124,11 +136,14 @@ onMounted(fetchProducts);
         <p class="text-gray-500 text-lg">A glimpse of our portfolio</p>
       </div>
 
-      <div v-if="loading" class="text-gray-500 text-lg">
+      <!-- Tampilkan loading jika masih fetching -->
+      <div v-if="pending" class="text-gray-500 text-lg">
         Loading products...
       </div>
 
+      <!-- Grid Produk -->
       <div
+        data-aos="fade-up"
         v-else
         class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto"
       >
@@ -146,14 +161,17 @@ onMounted(fetchProducts);
         </div>
       </div>
 
-      <button
-        class="mt-8 bg-blue-700 text-white px-8 py-2 rounded-full text-lg hover:bg-blue-700"
-      >
-        See More
-      </button>
+      <!-- Button Navigasi -->
+      <NuxtLink to="/product">
+        <button
+          class="mt-8 bg-blue-700 text-white px-8 py-2 rounded-full text-lg hover:bg-blue-700"
+        >
+          See More
+        </button>
+      </NuxtLink>
     </section>
     <!-- CTA Banner  -->
-    <section
+    <section data-aos="fade-left"
       class="min-h-[calc(60vh-68px)] bg-gray-100 flex justify-center item-center"
     >
       <img class="w-[1200px] h-[400px]" src="~/assets/cta-banner.png" alt="" />
@@ -166,21 +184,28 @@ onMounted(fetchProducts);
         class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
       >
         <img
+        data-aos="fade-right"
           class="w-[610px] h-[400px]"
           src="~/assets/team-photo.png"
           alt="team-photo"
         />
-        <div class="flex flex-col justify-center">
-          <h1 class="text-4xl md:text-5xl font-semibold">Meet Our Team</h1>
-          <p class="text-gray-500 mt-4">
-            Discover the brilliance behind Embrace. Our team blends innovation
-            and artistry to craft digital wonders that captivate.
-          </p>
-          <button
-            class="mt-6 bg-blue-600 text-white px-6 py-3 rounded-full text-lg hover:bg-blue-700"
-          >
-            Learn More
-          </button>
+        <div 
+        data-aos="fade-left"
+        class="flex flex-col">
+          <div class="flex justify-start flex-col">
+            <h1 class="text-4xl md:text-5xl font-semibold">Meet Our Team</h1>
+            <p class="text-gray-500 mt-4">
+              Discover the brilliance behind Embrace. Our team blends innovation
+              and artistry to craft digital wonders that captivate.
+            </p>
+          </div>
+          <div>
+            <Button
+              class="mt-6 bg-blue-600 text-white px-6 py-3 rounded-full text-lg hover:bg-blue-700"
+            >
+              Learn More
+            </Button>
+          </div>
         </div>
       </div>
     </section>
@@ -189,4 +214,3 @@ onMounted(fetchProducts);
     <Testimonial />
   </div>
 </template>
-

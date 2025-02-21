@@ -2,7 +2,7 @@
 const menus = ref([
   { label: "How It Works", to: "/" },
   { label: "Our Work", to: "/about" },
-  { label: "Product", to: "/product" },
+  { label: "Products", to: "/product-page" },
   { label: "About us", to: "/contact" },
 ]);
 
