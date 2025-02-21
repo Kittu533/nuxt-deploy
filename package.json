@@ -15,9 +15,11 @@
     "vue-router": "latest"
   },
   "devDependencies": {
+    "@formkit/auto-animate": "^0.8.2",
     "@nuxt/ui": "^2.21.0",
     "@nuxtjs/tailwindcss": "^6.13.1",
     "autoprefixer": "^10.4.20",
+    "nuxt-aos": "^1.2.5",
     "postcss": "^8.5.3",
     "tailwindcss": "^3.4.17"
   }
