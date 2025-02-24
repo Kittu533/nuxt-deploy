@@ -8,55 +8,15 @@ useSeoMeta({
   titleTemplate: "",
 });
 
-const stats = [
-  { value: "245%", label: "More revenues for the brand" },
-  { value: "130K+", label: "Audiences reached" },
-  { value: "50+", label: "Brands trust us" },
-  { value: "24+", label: "Worldwide Awards" },
-];
+import { useStatistics } from "#imports";
+const { stats } = useStatistics();
 
-// fetch API menggunakan useFetch
-interface Product {
-  id: number;
-  title: string;
-  image: string;
-}
+// fetch API menggunakan
+import { useProducts } from "~/composables/product/useProducts";
+const { products, pending, loading, error, fetchProducts } = useProducts();
+fetchProducts();
 
-const {
-  data: products,
-  pending,
-  error,
-} = useFetch<Product[]>("https://fakestoreapi.com/products?limit=3");
-
-// // fetch Api FakeStore
-// import { ref, onMounted } from "vue";
-
-//  Definisikan interface untuk produk dari API
-
-// // State untuk menyimpan data produk dan status loading
-// const products = ref<Product[]>([]);
-// const loading = ref(true);
-
-// // Fungsi untuk fetch data produk
-// const fetchProducts = async () => {
-//   try {
-//     const response = await fetch("https://fakestoreapi.com/products?limit=3");
-//     const data: Product[] = await response.json();
-//     products.value = data;
-//   } catch (error) {
-//     console.error("Error fetching products:", error);
-//   } finally {
-//     loading.value = false;
-//   }
-// };
-
-// // Fetch data saat komponen dipasang
-// onMounted(fetchProducts);
-
-// import { vAutoAnimate } from "@formkit/auto-animate";
-// import type { _transitionDuration } from "#tailwind-config/theme";
-
-// const isOpen = ref(false);
+const limitedProducts = computed(() => products.value.slice(0, 3));
 </script>
 
 <template>
@@ -81,7 +41,8 @@ const {
         </div>
       </div>
       <div data-aos="fade-left">
-        <img class="w-[602px]" src="~/assets/hero-img.png" alt="" />
+        <!-- <NuxtImg src="~/assets/hero-img.webp" /> -->
+        <img src="~/assets/hero-img.webp" alt="">
       </div>
     </section>
     <section
@@ -93,8 +54,18 @@ const {
         >
           Companies We Work With
         </h1>
-        <img data-aos="right" class="w-[1200px]" src="~/assets/work-with-1.png" alt="" />
-        <img data-aos="left" class="w-[1200px]" src="~/assets/work-with-2.png" alt="" />
+        <img
+          data-aos="right"
+          class="w-[1200px]"
+          src="~/assets/work-with-1.webp"
+          alt=""
+        />
+        <img
+          data-aos="left"
+          class="w-[1200px]"
+          src="~/assets/work-with-2.webp"
+          alt=""
+        />
       </div>
     </section>
     <section
@@ -148,7 +119,7 @@ const {
         class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto"
       >
         <div
-          v-for="product in products"
+          v-for="product in limitedProducts"
           :key="product.id"
           class="bg-white rounded-3xl shadow-md p-6 text-center"
         >
@@ -171,10 +142,11 @@ const {
       </NuxtLink>
     </section>
     <!-- CTA Banner  -->
-    <section data-aos="fade-left"
+    <section
+      data-aos="fade-left"
       class="min-h-[calc(60vh-68px)] bg-gray-100 flex justify-center item-center"
     >
-      <img class="w-[1200px] h-[400px]" src="~/assets/cta-banner.png" alt="" />
+      <img class="w-[1200px] h-[400px]" src="~/assets/cta-banner.webp" alt="" />
     </section>
     <!-- Meet Our Team -->
     <section
@@ -184,14 +156,12 @@ const {
         class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
       >
         <img
-        data-aos="fade-right"
+          data-aos="fade-right"
           class="w-[610px] h-[400px]"
-          src="~/assets/team-photo.png"
+          src="~/assets/team-photo.webp"
           alt="team-photo"
         />
-        <div 
-        data-aos="fade-left"
-        class="flex flex-col">
+        <div data-aos="fade-left" class="flex flex-col">
           <div class="flex justify-start flex-col">
             <h1 class="text-4xl md:text-5xl font-semibold">Meet Our Team</h1>
             <p class="text-gray-500 mt-4">

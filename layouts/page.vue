@@ -19,7 +19,7 @@ const menus = ref([
     >
       <PageContainer class="felx-1 flex items-center justify-between">
         <div class="flex items-center">
-          <img class="w-32" src="~/assets/Logo.png" alt="" />
+          <img class="w-32" src="~/assets/Logo.webp" alt="" />
         </div>
 
         <!-- menu -->
