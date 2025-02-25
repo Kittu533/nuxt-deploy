@@ -11,8 +11,12 @@ export default defineNuxtConfig({
       API_PRODUCTS: process.env.NUXT_PUBLIC_API_PRODUCTS,
     },
   },
+  // nitro: {
+  //   preset: 'node-server',
+    
+  // },
   nitro: {
-    preset: 'node-server'
+    preset: "vercel" // Pastikan preset Vercel digunakan
   },
   modules: [
     '@nuxt/ui',
