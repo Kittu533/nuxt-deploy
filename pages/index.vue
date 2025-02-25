@@ -42,8 +42,8 @@ const limitedProducts = computed(() => products.value.slice(0, 3));
         </div>
       </div>
       <div data-aos="fade-left">
-        <!-- <NuxtImg src="~/assets/hero-img.webp" /> -->
-        <img src="~/assets/hero-img.webp" alt="">
+        <!-- <NuxtImg src="/hero-img.webp" /> -->
+        <img src="/hero-img.webp" alt="">
       </div>
     </section>
     <section
@@ -58,13 +58,13 @@ const limitedProducts = computed(() => products.value.slice(0, 3));
         <img
           data-aos="right"
           class="w-[1200px]"
-          src="~/assets/work-with-1.webp"
+          src="/work-with-1.webp"
           alt=""
         />
         <img
           data-aos="left"
           class="w-[1200px]"
-          src="~/assets/work-with-2.webp"
+          src="/work-with-2.webp"
           alt=""
         />
       </div>
@@ -147,7 +147,7 @@ const limitedProducts = computed(() => products.value.slice(0, 3));
       data-aos="fade-left"
       class="min-h-[calc(60vh-68px)] bg-gray-100 flex justify-center item-center"
     >
-      <img class="w-[1200px] h-[400px]" src="~/assets/cta-banner.webp" alt="" />
+      <img class="w-[1200px] h-[400px]" src="/cta-banner.webp" alt="" />
     </section>
     <!-- Meet Our Team -->
     <section
@@ -159,7 +159,7 @@ const limitedProducts = computed(() => products.value.slice(0, 3));
         <img
           data-aos="fade-right"
           class="w-[610px] h-[400px]"
-          src="~/assets/team-photo.webp"
+          src="/team-photo.webp"
           alt="team-photo"
         />
         <div data-aos="fade-left" class="flex flex-col">
