@@ -8,6 +8,11 @@ useSeoMeta({
   titleTemplate: "",
 });
 
+// import composable untuk Api External
+// import { useProducts } from "~/composables/product/useProducts";
+//     const { products, fetchProducts } = useProducts();
+//     fetchProducts();
+
 // import composable produk
 import { useProducts } from "~/composables/product/useProducts";
 const { products, pending, loading, error, fetchProducts } = useProducts();

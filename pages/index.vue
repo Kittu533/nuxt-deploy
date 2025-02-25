@@ -11,10 +11,11 @@ useSeoMeta({
 import { useStatistics } from "#imports";
 const { stats } = useStatistics();
 
-// fetch API menggunakan
-import { useProducts } from "~/composables/product/useProducts";
-const { products, pending, loading, error, fetchProducts } = useProducts();
+// fetch API menggunakan BaseURL
+import { useProducts } from '~/composables/product/useProducts';
+const {products,pending,loading,error,fetchProducts} = useProducts();
 fetchProducts();
+
 
 const limitedProducts = computed(() => products.value.slice(0, 3));
 </script>
